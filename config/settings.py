@@ -69,7 +69,10 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASS', ''),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '5432'),
-        'DISABLE_SERVER_SIDE_CURSORS': True,  # required for pooler
+        'DISABLE_SERVER_SIDE_CURSORS': True,
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 
