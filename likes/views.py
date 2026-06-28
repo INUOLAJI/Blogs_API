@@ -10,15 +10,16 @@ class LikeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        post_id = request.data.get("post")
+        post_id = request.data.get("post_id") or request.data.get("post")
         user = request.user
 
         is_liked = Like.objects.filter(user=user, post_id=post_id)
 
         if is_liked.exists():
             is_liked.delete()
-            return Response({"message":"post unliked successfully"}, status=status.HTTP_200_OK)
+            return Response({"message": "post unliked successfully"}, status=status.HTTP_200_OK)
+            
         return super().create(request, *args, **kwargs)
     
     def perform_create(self, serializer):
-        return serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user)
