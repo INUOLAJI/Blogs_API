@@ -4,7 +4,7 @@ from accounts.serializers import UserSerializer
 
 
 class PostSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = UserSerializer(read_only=True) 
     comments_count = serializers.SerializerMethodField(read_only=True)
     likes_count = serializers.SerializerMethodField(read_only=True)
 
